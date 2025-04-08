@@ -56,7 +56,7 @@ tasksystemapi_/
    ```bash
    npm start
    ```
-Servidor rodando em: http://localhost:3000
+Servidor rodando em: http://localhost:3001
 
 > ⚠️ Rodar o XAMPP com o MYSQL ativo e com o banco de dados informado criado. 
 
