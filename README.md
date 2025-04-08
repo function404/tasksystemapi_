@@ -18,7 +18,8 @@ Este é um projeto de API RESTful para gerenciamento de **usuários**, **projeto
 
 ## 📁 Estrutura do Projeto
 
-project/ 
+```
+tasksystemapi_/ 
 │-- src/ 
 │ ├── config/ 
 │ │ └── database.js 
@@ -36,7 +37,7 @@ project/
 │ │ └── taskRoutes.js 
 │ └── server.js
 | └── package.json
-
+```
 ---
 
 ## ⚙️ Configuração do Projeto
