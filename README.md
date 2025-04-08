@@ -77,18 +77,18 @@ Servidor rodando em: http://localhost:3000
 - `DELETE /api/users/:id` – Remover usuário
 
 ### 📁 Projetos (`/api/projects`)
-- `GET /api/projects`
-- `GET /api/projects/:id`
-- `POST /api/projects`
-- `PUT /api/projects/:id`
-- `DELETE /api/projects/:id`
+- `GET /api/projects` – Listar todos os projetos
+- `GET /api/projects/:id` – Buscar projeto por ID
+- `POST /api/projects` – Cadastro de novo projeto
+- `PUT /api/projects/:id` – Atualizar projeto
+- `DELETE /api/projects/:id` – Remover projeto
 
 ### ✅ Tarefas (`/api/tasks`)
-- `GET /api/tasks`
-- `GET /api/tasks/:id`
-- `POST /api/tasks`
-- `PUT /api/tasks/:id`
-- `DELETE /api/tasks/:id`
+- `GET /api/tasks` – Listar todas as tarefas
+- `GET /api/tasks/:id` – Buscar tarefa por ID
+- `POST /api/tasks` – Cadastro de nova tarefa
+- `PUT /api/tasks/:id` – Atualizar tarefa
+- `DELETE /api/tasks/:id` – Remover tarefa
 
 > Todos os endpoints (exceto `/register` e `/login`) exigem token JWT válido.
 
