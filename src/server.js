@@ -24,10 +24,10 @@ app.post('/login', userController.login);
 app.post('/register', userController.createUsers);
 
 app.use('/api', userRoutes);
-app.use('/api', projectRoutes);
 app.use('/api', taskRoutes);
+app.use('/api', projectRoutes);
 
-database.sync({ force: true })
+database.sync({ force: false })
     .then(() => {
         app.listen(Number(port), () => 
             console.log(`🚀fiuu🚀 Servidor rodando na porta 🚀paaa🚀${port}`)

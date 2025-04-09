@@ -1,4 +1,5 @@
 const Project = require('../models/project');
+const Task = require('../models/task');
 
 class ProjectController {
    async getProject(req, res) {
@@ -60,14 +61,22 @@ class ProjectController {
 
    async deleteProject(req, res) {
       const { id } = req.params;
+      if (!id) {
+         return res.status(404).send('ID não informado!');
+      }
 
       const project = await Project.findByPk(id);
       if (!project) {
          return res.status(404).json('Projeto não encontrado');
       }
 
+      const tarefas = await Task.findAll({ where: { projectId: id } });
+      if (tarefas.length > 0) {
+         await Task.destroy({ where: { projectId: id } });
+      };
+
       project.destroy();
-      return res.status(200).send('Projeto deletado com sucesso');
+      return res.status(200).send('Projeto deletado com sucesso juntamente com as tarefas associadas!');
    }
 }
 

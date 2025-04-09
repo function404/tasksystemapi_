@@ -3,11 +3,12 @@ const router = express.Router();
 
 const projectController = require('../controllers/projectController');
 const userController = require('../controllers/userController');
+router.use(userController.validateToken);
 
-router.get('/projects', userController.validateToken, projectController.getProject);
-router.get('/projects/:id', userController.validateToken, projectController.getProjectById);
-router.post('/projects', userController.validateToken, projectController.createProject);
-router.put('/projects/:id', userController.validateToken, projectController.updateProject);
-router.delete('/projects/:id', userController.validateToken, projectController.deleteProject);
+router.get('/projects', projectController.getProject);
+router.get('/projects/:id', projectController.getProjectById);
+router.post('/projects', projectController.createProject);
+router.put('/projects/:id', projectController.updateProject);
+router.delete('/projects/:id', projectController.deleteProject);
 
 module.exports = router;

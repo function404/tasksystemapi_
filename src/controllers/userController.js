@@ -1,3 +1,4 @@
+const Task = require('../models/task');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -77,13 +78,22 @@ class UserController {
    async deleteUsers(req, res) {
       const { id } = req.params;
       if (!id) {
-         return res.status(404).send('ID não informado');
+         return res.status(404).send('ID não informado!');
       }
 
       const user = await User.findByPk(id);
+      if (!user) {
+         return res.status(404).send('Usuário não encontrado!');
+      }
+
+      const tasks = await Task.findAll({ where: { userId: id }});
+
+      if (tasks.length > 0) {
+         await Task.destroy({ where: { userId: id }});
+      }
 
       user.destroy();
-      return res.status(200).send('Usuário deletado com sucesso');
+      return res.status(200).send('Usuário deletado com sucesso juntamente com as tarefas associadas!');
    }
 
    async login(req, res) {
