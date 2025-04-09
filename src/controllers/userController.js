@@ -51,10 +51,10 @@ class UserController {
       const { id } = req.params;
       const { name, email, password } = req.body;
       if ( !id || !name || !email || !password) {
-         return res.status(400).json('Preencha todos os campos!')
+         return res.status(400).json('Preencha todos os campos!');
       }
 
-      const user = await User.findByPk(id);;
+      const user = await User.findByPk(id);
       if (!user) {
          return res.status(404).send('Usuário não encontrado');
       }
@@ -107,12 +107,12 @@ class UserController {
          return res.status(400).json('Usuário não encontrado!');
       }
 
-      const isPaswordValid = await bcrypt.compare(password, user.password)
+      const isPaswordValid = await bcrypt.compare(password, user.password);
       if (!isPaswordValid) {
          return res.status(400).json('Senha inválida!');
       }
 
-      const jwtToken = jwt.sign({ id: user.id }, JWT_SECRET_KEY)
+      const jwtToken = jwt.sign({ id: user.id }, JWT_SECRET_KEY, { expiresIn: "1h" });
 
       return res.status(200).json({ token: jwtToken });
    }

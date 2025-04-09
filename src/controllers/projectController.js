@@ -10,7 +10,7 @@ class ProjectController {
    async getProjectById(req, res) {
       const { id } = req.params;
       if (id === undefined) {
-         return res.status(400).json('ID não informado!')
+         return res.status(400).json('ID não informado!');
       }
 
       const project = await Project.findByPk(id);
@@ -19,7 +19,7 @@ class ProjectController {
          return res.status(400).json('Projeto não encontrado!');
       }
 
-      return res.json(project)
+      return res.json(project);
    }
 
    async createProject(req, res) {

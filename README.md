@@ -1,6 +1,6 @@
-# 📋 Projeto CRUD com Autenticação - Node.js + Sequelize
+# 📋 Projeto CRUD com Autenticação - Javascript + Sequelize
 
-Este é um projeto de API RESTful para gerenciamento de **usuários**, **projetos** e **tarefas** com autenticação via JWT. Desenvolvido com Node.js, Express e Sequelize (MySQL).
+Este é um projeto de API RESTful para gerenciamento de **usuários**, **projetos** e **tarefas** com autenticação via JWT. Desenvolvido com Javascript, Express e Sequelize (MySQL).
 
 ---
 

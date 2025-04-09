@@ -27,10 +27,10 @@ app.use('/api', userRoutes);
 app.use('/api', taskRoutes);
 app.use('/api', projectRoutes);
 
-database.sync({ force: false })
+database.sync({ force: true })
     .then(() => {
         app.listen(Number(port), () => 
-            console.log(`🚀fiuu🚀 Servidor rodando na porta 🚀paaa🚀${port}`)
+            console.log(`🚀 Servidor rodando na porta: ${port}`)
         );
     })
     .catch(err => {

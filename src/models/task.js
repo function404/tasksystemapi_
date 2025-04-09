@@ -2,7 +2,7 @@ const database = require("../config/database");
 
 class Task {
    constructor() {
-      this.data = database.define('tasks', {
+      this.model = database.define('tasks', {
          id: {
             type: database.Sequelize.INTEGER,
             primaryKey: true,
@@ -33,4 +33,4 @@ class Task {
    }
 }
 
-module.exports = (new Task).data;
+module.exports = (new Task).model;
