@@ -9,11 +9,12 @@ class ProjectController {
 
    async getProjectById(req, res) {
       const { id } = req.params;
-      if (id === undefined) {
+      const idProject = Number(id);
+      if (!idProject) {
          return res.status(400).json('ID não informado!');
       }
 
-      const project = await Project.findByPk(id);
+      const project = await Project.findByPk(idProject);
 
       if (!project) {
          return res.status(400).json('Projeto não encontrado!');
@@ -41,14 +42,15 @@ class ProjectController {
    async updateProject(req, res) {
       const { id } = req.params;
       const { name, description } = req.body;
+      const idProject = Number(id);
 
-      const project = await Project.findByPk(id);
+      const project = await Project.findByPk(idProject);
       if (!project) {
          return res.status(404).json('Projeto não encontrado');
       }
 
       const existingProject = await Project.findOne({ where: { name } });
-      if (existingProject && existingProject.id !== Number(id)) {
+      if (existingProject && existingProject.id !== idProject) {
          return res.status(400).json('Projeto com esse nome já existe!');
       }
 
@@ -61,19 +63,17 @@ class ProjectController {
 
    async deleteProject(req, res) {
       const { id } = req.params;
-      if (!id) {
+      const idProject = Number(id);
+      if (!idProject) {
          return res.status(404).json('ID não informado!');
       }
 
-      const project = await Project.findByPk(id);
+      const project = await Project.findByPk(idProject);
       if (!project) {
          return res.status(404).json('Projeto não encontrado');
       }
 
-      const tarefas = await Task.findAll({ where: { projectId: id } });
-      if (tarefas.length > 0) {
-         await Task.destroy({ where: { projectId: id } });
-      };
+      await Task.destroy({ where: { projectId: idProject } });
 
       project.destroy();
       return res.status(200).json('Projeto deletado com sucesso juntamente com as tarefas associadas!');

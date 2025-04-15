@@ -9,12 +9,13 @@ class TaskController {
    }
 
    async getTaksById(req, res) {
-      const { id } =req.params;
-      if (!id) {
+      const { id } = req.params;
+      const idTask = Number(id);
+      if (!idTask) {
          return res.status(400).json('ID não informado!');
       }
 
-      const task = await Task.findByPk(id);
+      const task = await Task.findByPk(idTask);
       if (!task) {
          return res.status(404).json('Tarefa não encontrada!');
       }
@@ -51,8 +52,9 @@ class TaskController {
    async updateTasks(req, res) {
       const { id } = req.params;
       const { title, status, projectId, userId } = req.body;
+      const idTask = Number(id);
 
-      const task = await Task.findByPk(id);
+      const task = await Task.findByPk(idTask);
       if (!task) {
          return res.status(404).json('Tarefa não encontrada');
       }
@@ -68,7 +70,7 @@ class TaskController {
       }
 
       const existingTask = await Task.findOne({ where: { title } });
-      if (existingTask && existingTask.id !== Number(id)) {
+      if (existingTask && existingTask.id !== idTask) {
          return res.status(400).json('Tarefa com esse título já existe!');
       }
 
@@ -83,8 +85,12 @@ class TaskController {
 
    async deleteTasks(req, res) {
       const { id } = req.params;
+      const idTask = Number(id);
+      if (!idTask) {
+         return res.status(400).json('ID não informado!');
+      }
 
-      const task = await Task.findByPk(id);
+      const task = await Task.findByPk(idTask);
       if (!task) {
          return res.status(404).json('Tarefa não encontrada');
       }

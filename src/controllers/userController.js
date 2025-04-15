@@ -14,11 +14,12 @@ class UserController {
 
    async getUserById(req, res) {
       const { id } = req.params;
-      if (!id) {
+      const idUser = Number(id);
+      if (!idUser) {
          return res.status(400).json('ID não informado!');
       }
 
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(idUser);
 
       if (!user) {
          return res.status(400).json('Usuário não encontrado!');
@@ -50,17 +51,18 @@ class UserController {
    async updateUsers(req, res) {
       const { id } = req.params;
       const { name, email, password } = req.body;
-      if ( !id || !name || !email || !password) {
+      const idUser = Number(id);
+      if ( !idUser || !name || !email || !password) {
          return res.status(400).json('Preencha todos os campos!');
       }
 
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(idUser);
       if (!user) {
          return res.status(404).json('Usuário não encontrado');
       }
 
       const existingUser = await User.findOne({ where: { email } });
-      if (existingUser && existingUser.id !== Number(id)) {
+      if (existingUser && existingUser.id !== idUser) {
          return res.status(400).json('Email já cadastrado!');
       }
 
@@ -77,24 +79,21 @@ class UserController {
 
    async deleteUsers(req, res) {
       const { id } = req.params;
-      if (!id) {
+      const idUser = Number(id)
+      if (!idUser) {
          return res.status(404).json('ID não informado!');
       }
-
-      if (req.user === id) {
-         return res.status(400).json('Você não pode deletar sua própria conta!');
-      }
-
-      const user = await User.findByPk(id);
+      
+      const user = await User.findByPk(idUser);
       if (!user) {
          return res.status(404).json('Usuário não encontrado!');
       }
 
-      const tasks = await Task.findAll({ where: { userId: id }});
-
-      if (tasks.length > 0) {
-         await Task.destroy({ where: { userId: id }});
+      if (req.user === idUser) {
+         return res.status(400).json('Você não pode deletar sua própria conta!');
       }
+
+      await Task.destroy({ where: { userId: idUser } });
 
       user.destroy();
       return res.status(200).json('Usuário deletado com sucesso juntamente com as tarefas associadas!');
