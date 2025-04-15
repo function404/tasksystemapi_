@@ -14,8 +14,8 @@ class UserController {
 
    async getUserById(req, res) {
       const { id } = req.params;
-      if (id === undefined) {
-         return res.status(400).json('ID não informado!')
+      if (!id) {
+         return res.status(400).json('ID não informado!');
       }
 
       const user = await User.findByPk(id);
@@ -24,7 +24,7 @@ class UserController {
          return res.status(400).json('Usuário não encontrado!');
      }
 
-      return res.json(user)
+      return res.json(user);
    }
 
    async createUsers(req, res) {
@@ -56,7 +56,7 @@ class UserController {
 
       const user = await User.findByPk(id);
       if (!user) {
-         return res.status(404).send('Usuário não encontrado');
+         return res.status(404).json('Usuário não encontrado');
       }
 
       const existingUser = await User.findOne({ where: { email } });
@@ -78,12 +78,16 @@ class UserController {
    async deleteUsers(req, res) {
       const { id } = req.params;
       if (!id) {
-         return res.status(404).send('ID não informado!');
+         return res.status(404).json('ID não informado!');
+      }
+
+      if (req.user === id) {
+         return res.status(400).json('Você não pode deletar sua própria conta!');
       }
 
       const user = await User.findByPk(id);
       if (!user) {
-         return res.status(404).send('Usuário não encontrado!');
+         return res.status(404).json('Usuário não encontrado!');
       }
 
       const tasks = await Task.findAll({ where: { userId: id }});
@@ -93,7 +97,7 @@ class UserController {
       }
 
       user.destroy();
-      return res.status(200).send('Usuário deletado com sucesso juntamente com as tarefas associadas!');
+      return res.status(200).json('Usuário deletado com sucesso juntamente com as tarefas associadas!');
    }
 
    async login(req, res) {
@@ -127,7 +131,7 @@ class UserController {
    
       try {
          const payload = jwt.verify(token, JWT_SECRET_KEY);
-         req.user = payload;
+         req.user = payload.id;
          next();
       } catch (err) {
          return res.status(401).json('Token inválido!');

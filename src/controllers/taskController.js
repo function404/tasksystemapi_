@@ -90,7 +90,7 @@ class TaskController {
       }
 
       task.destroy();
-      return res.status(200).send('Tarefa deletada com sucesso');
+      return res.status(200).json('Tarefa deletada com sucesso');
    }
 }
 

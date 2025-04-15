@@ -62,7 +62,7 @@ class ProjectController {
    async deleteProject(req, res) {
       const { id } = req.params;
       if (!id) {
-         return res.status(404).send('ID não informado!');
+         return res.status(404).json('ID não informado!');
       }
 
       const project = await Project.findByPk(id);
@@ -76,7 +76,7 @@ class ProjectController {
       };
 
       project.destroy();
-      return res.status(200).send('Projeto deletado com sucesso juntamente com as tarefas associadas!');
+      return res.status(200).json('Projeto deletado com sucesso juntamente com as tarefas associadas!');
    }
 }
 
