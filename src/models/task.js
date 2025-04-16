@@ -1,4 +1,4 @@
-const database = require("../config/database");
+const database = require("../config/database")
 
 class Task {
    constructor() {
@@ -29,8 +29,8 @@ class Task {
             }
          }
 
-      });
+      })
    }
 }
 
-module.exports = (new Task).model;
+module.exports = (new Task).model

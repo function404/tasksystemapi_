@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
 
 class Database extends Sequelize {
    constructor() {
@@ -6,8 +6,8 @@ class Database extends Sequelize {
          host: 'localhost',
          dialect: 'mysql',
          logging: false,
-      });
+      })
    }
 }
 
-module.exports = new Database();
+module.exports = new Database()

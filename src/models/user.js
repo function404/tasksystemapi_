@@ -1,4 +1,4 @@
-const database = require('../config/database');
+const database = require('../config/database')
 
 class User {
    constructor() {
@@ -21,4 +21,4 @@ class User {
    }
 }
 
-module.exports = (new User).model;
+module.exports = (new User).model

@@ -1,4 +1,4 @@
-const database = require('../config/database');
+const database = require('../config/database')
 class Project {
    constructor() {
       this.model = database.define('projects', {
@@ -17,4 +17,4 @@ class Project {
    }
 }
 
-module.exports = (new Project).model;
+module.exports = (new Project).model
